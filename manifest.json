@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "كوين ستار — تحديات منطقية بالألوان",
+  "short_name": "كوين ستار",
+  "description": "لعبة ألغاز منطقية بالألوان ومولّد مجموعات ألغاز للطباعة.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff8fd",
+  "theme_color": "#fff7fd",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
