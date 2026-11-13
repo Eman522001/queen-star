@@ -4,6 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fff7fd">
+  <meta name="description" content="لعبة ألغاز منطقية بالألوان ومولّد مجموعات ألغاز للطباعة.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
   <title>كوين ستار — تحديات منطقية بالألوان</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -79,6 +83,15 @@
     <footer><span>كوين ستار</span><span>لعبة للكبار والصغار</span></footer>
   </main>
   <section id="print-document" class="print-document" aria-label="صفحات الكتاب"></section>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch((error) => {
+          console.error("Queen Star offline setup failed:", error);
+        });
+      });
+    }
+  </script>
   <script src="app.js"></script>
 </body>
 </html>
