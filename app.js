@@ -95,11 +95,26 @@ function generatePuzzle(size, difficulty) {
   const target = Math.max(1, Math.round(size * DIFFICULTIES[difficulty].clues));
   const rowOrder = shuffle(Array.from({ length: size }, (_, i) => i));
   const givens = {};
+
+  // Start with the requested clue count, then add clues until the puzzle has exactly one solution.
   for (const row of rowOrder.slice(0, target)) givens[row] = solution[row];
-  // Keep at least the selected number of clues; a candidate is removed only if one solution remains.
+  if (countSolutions(size, regions, givens) !== 1) {
+    for (const row of rowOrder.slice(target)) {
+      givens[row] = solution[row];
+      if (countSolutions(size, regions, givens) === 1) break;
+    }
+  }
+
+  // Remove any redundant clues, but never allow the puzzle to have zero or multiple solutions.
   for (const row of shuffle(Object.keys(givens).map(Number))) {
-    const oldCol = givens[row]; delete givens[row];
+    const oldCol = givens[row];
+    delete givens[row];
     if (countSolutions(size, regions, givens) !== 1) givens[row] = oldCol;
+  }
+
+  // Safety check: a generated puzzle must always have one and only one solution.
+  if (countSolutions(size, regions, givens) !== 1) {
+    throw new Error("تعذر إنشاء لغز ذي حل وحيد. أعيدي المحاولة.");
   }
   return { id: crypto.randomUUID(), size, difficulty, solution, regions, givens, marks: Array(size * size).fill("") };
 }
